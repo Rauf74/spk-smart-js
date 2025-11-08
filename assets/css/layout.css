@@ -1,0 +1,15 @@
+@media (min-width: 1400px) {
+    .body-wrapper>.container-fluid,
+    .body-wrapper>.container-lg,
+    .body-wrapper>.container-md,
+    .body-wrapper>.container-sm,
+    .body-wrapper>.container-xl,
+    .body-wrapper>.container-xxl {
+        max-width: 75% !important;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .body-wrapper {
+        max-width: 100% !important;
+    }
+}

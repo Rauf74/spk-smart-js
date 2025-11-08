@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard - SPK SMART</title>
+  <link rel="shortcut icon" type="image/png" href="/assets/images/smk3.png" />
+  <link rel="stylesheet" href="/assets/css/styles.min.css" />
+</head>
+<body>
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6"
+       data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+
+    <spk-sidebar></spk-sidebar>
+
+    <div class="body-wrapper">
+      <spk-header></spk-header>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+              <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                  <div class="col-9">
+                    <h4 class="fw-semibold mb-8">
+                      Selamat Datang, <span id="welcomeName">Pengguna</span>!
+                    </h4>
+                    <p class="mb-0">Sistem Pendukung Keputusan Rekomendasi Program Studi</p>
+                    <p class="mb-0 text-muted">SMK Muhammadiyah 3 Tangerang Selatan</p>
+                  </div>
+                  <div class="col-3">
+                    <div class="text-center mb-n5">
+                      <img src="/assets/images/backgrounds/rocket.png" alt="" class="img-fluid mb-n4" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-3 col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="row align-items-start">
+                  <div class="col-8">
+                    <h5 class="card-title mb-9 fw-semibold">Total Kriteria</h5>
+                    <h4 class="fw-semibold mb-3"><span id="statTotalKriteria">0</span></h4>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-flex justify-content-end">
+                      <div class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
+                        <i class="ti ti-article fs-6"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="row align-items-start">
+                  <div class="col-8">
+                    <h5 class="card-title mb-9 fw-semibold">Sub Kriteria</h5>
+                    <h4 class="fw-semibold mb-3"><span id="statTotalSubkriteria">0</span></h4>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-flex justify-content-end">
+                      <div class="text-white bg-warning rounded-circle p-6 d-flex align-items-center justify-content-center">
+                        <i class="ti ti-list fs-6"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="row align-items-start">
+                  <div class="col-8">
+                    <h5 class="card-title mb-9 fw-semibold">Total Alternatif</h5>
+                    <h4 class="fw-semibold mb-3"><span id="statTotalAlternatif">0</span></h4>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-flex justify-content-end">
+                      <div class="text-white bg-primary rounded-circle p-6 d-flex align-items-center justify-content-center">
+                        <i class="ti ti-building fs-6"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="row align-items-start">
+                  <div class="col-12">
+                    <h5 class="card-title mb-9 fw-semibold">Penilaian Selesai</h5>
+                    <h4 class="fw-semibold mb-3">
+                      <span id="statTotalPenilaian">0</span> dari <span id="statTotalSiswa">0</span>
+                    </h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 d-flex align-items-stretch">
+            <div class="card w-100">
+              <div class="card-body">
+                <div class="d-sm-flex d-block align-items-center justify-content-between mb-4">
+                  <div class="mb-3 mb-sm-0">
+                    <h5 class="card-title fw-semibold mb-1">Distribusi Jenis Kriteria</h5>
+                    <p class="fw-normal mb-0 text-muted">Perbandingan Kriteria Benefit dan Cost</p>
+                  </div>
+                </div>
+                <div id="kriteriaChart" class="pb-2"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 d-flex align-items-stretch">
+            <div class="card w-100">
+              <div class="card-body">
+                <div class="d-sm-flex d-block align-items-center justify-content-between mb-4">
+                  <div class="mb-3 mb-sm-0">
+                    <h5 class="card-title fw-semibold mb-1">Bobot Kriteria</h5>
+                    <p class="fw-normal mb-0 text-muted">Perbandingan bobot masing-masing kriteria</p>
+                  </div>
+                </div>
+                <div id="bobotChart" class="pb-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 d-flex align-items-stretch">
+            <div class="card w-100">
+              <div class="card-body">
+                <div class="d-sm-flex d-block align-items-center justify-content-between mb-4">
+                  <div class="mb-3 mb-sm-0">
+                    <h5 class="card-title fw-semibold mb-1">Ringkasan Pengguna</h5>
+                    <p class="fw-normal mb-0 text-muted">Total pengguna terdaftar</p>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center">
+                  <div class="col-6">
+                    <div class="d-flex align-items-center mb-2">
+                      <span class="me-2 rounded-circle bg-light-primary round-20 d-flex align-items-center justify-content-center">
+                        <i class="ti ti-calculator text-primary"></i>
+                      </span>
+                      <p class="mb-0 fs-3">Metode SMART</p>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                      <span class="me-2 rounded-circle bg-light-warning round-20 d-flex align-items-center justify-content-center">
+                        <i class="ti ti-database text-warning"></i>
+                      </span>
+                      <p class="mb-0 fs-3">Database Connected</p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                      <span class="me-2 rounded-circle bg-light-info round-20 d-flex align-items-center justify-content-center">
+                        <i class="ti ti-chart-bar text-info"></i>
+                      </span>
+                      <p class="mb-0 fs-3">Rata-rata Bobot: <span id="avgBobotValue">0.00</span>%</p>
+                    </div>
+                    <div class="mt-4">
+                      <h4 class="fw-semibold mb-0"><span id="statTotalUsers">0</span></h4>
+                      <p class="mb-0 text-muted">Total Pengguna</p>
+                    </div>
+                  </div>
+                  <div class="col-6 d-flex justify-content-center">
+                    <div id="breakup"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 d-flex align-items-stretch">
+            <div class="card w-100">
+              <div class="card-body">
+                <div class="d-sm-flex d-block align-items-center justify-content-between mb-4">
+                  <div class="mb-3 mb-sm-0">
+                    <h5 class="card-title fw-semibold">Aktivitas Terbaru</h5>
+                    <p class="fw-normal mb-0 text-muted">Pembaruan terbaru dari sistem</p>
+                  </div>
+                </div>
+                <div id="recentActivities">
+                  <div class="d-flex align-items-center pb-3">
+                    <div class="spinner-border text-primary me-3" role="status" aria-hidden="true"></div>
+                    <p class="mb-0 text-muted">Memuat aktivitas...</p>
+                  </div>
+                </div>
+                <div class="py-6 px-6 text-center">
+                  <p class="mb-0 fs-4">Menampilkan 4 aktivitas terbaru</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 d-flex align-items-stretch">
+            <div class="card w-100">
+              <div class="card-body">
+                <div class="d-sm-flex d-block align-items-center justify-content-between mb-4">
+                  <div class="mb-3 mb-sm-0">
+                    <h5 class="card-title fw-semibold">Program Studi Terbaru</h5>
+                  </div>
+                </div>
+                <div id="latestPrograms">
+                  <div class="d-flex align-items-center pb-3">
+                    <div class="spinner-border text-primary me-3" role="status" aria-hidden="true"></div>
+                    <p class="mb-0 text-muted">Memuat data program studi...</p>
+                  </div>
+                </div>
+                <div class="py-6 px-6 text-center">
+                  <a href="#" data-program-link class="btn btn-outline-primary">Lihat Semua</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title fw-semibold mb-4">Aksi Cepat</h5>
+                <div class="row" id="quickActionsGuru" hidden>
+                  <div class="col-lg-3 col-md-6 mb-3">
+                    <a href="/views/profile.html" class="btn btn-outline-primary w-100 py-8 fs-4 rounded-2">
+                      <i class="ti ti-user-circle me-2"></i>Kelola Profile
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 mb-3">
+                    <a href="/views/kriteria.html" class="btn btn-primary w-100 py-8 fs-4 rounded-2">
+                      <i class="ti ti-list-check me-2"></i>Kelola Kriteria
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 mb-3">
+                    <a href="/views/alternatif.html" class="btn btn-success w-100 py-8 fs-4 rounded-2">
+                      <i class="ti ti-clipboard-list me-2"></i>Kelola Alternatif
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 mb-3">
+                    <a href="/views/pertanyaan.html" class="btn btn-info w-100 py-8 fs-4 rounded-2">
+                      <i class="ti ti-help me-2"></i>Kelola Pertanyaan
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 mb-3">
+                    <a href="/views/penilaian.html" class="btn btn-warning w-100 py-8 fs-4 rounded-2">
+                      <i class="ti ti-star me-2"></i>Input Penilaian
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 mb-3">
+                    <a href="/views/perhitungan.html" class="btn btn-secondary w-100 py-8 fs-4 rounded-2">
+                      <i class="ti ti-calculator me-2"></i>Lihat Perhitungan
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 mb-3">
+                    <a href="/views/perangkingan.html" class="btn btn-dark w-100 py-8 fs-4 rounded-2">
+                      <i class="ti ti-trophy me-2"></i>Hasil Perangkingan
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 mb-3">
+                    <a href="/views/user.html" class="btn btn-danger w-100 py-8 fs-4 rounded-2">
+                      <i class="ti ti-users me-2"></i>Kelola User
+                    </a>
+                  </div>
+                </div>
+                <div class="row" id="quickActionsSiswa" hidden>
+                  <div class="col-lg-3 col-md-6 mb-3">
+                    <a href="/views/profile.html" class="btn btn-outline-secondary w-100 py-8 fs-4 rounded-2">
+                      <i class="ti ti-user-circle me-2"></i>Profile Saya
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 mb-3">
+                    <a href="/views/penilaian_siswa.html" class="btn btn-primary w-100 py-8 fs-4 rounded-2">
+                      <i class="ti ti-pencil me-2"></i>Mulai Penilaian
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 mb-3">
+                    <a href="/views/perhitungan_siswa.html" class="btn btn-info w-100 py-8 fs-4 rounded-2">
+                      <i class="ti ti-calculator me-2"></i>Lihat Proses Hitung
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 mb-3">
+                    <a href="/views/perangkingan_siswa.html" class="btn btn-success w-100 py-8 fs-4 rounded-2">
+                      <i class="ti ti-trophy me-2"></i>Lihat Hasil Akhir
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="py-6 px-6 text-center">
+          <p class="mb-0 fs-4">Design and Developed by RAUF</p>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-overlay"></div>
+  </div>
+
+  <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/components/sidebarmenu.js"></script>
+  <script src="/components/app.min.js"></script>
+  <script src="/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+  <script src="/assets/libs/simplebar/dist/simplebar.js"></script>
+
+  <script type="module" src="/components/index-component.js"></script>
+  <script type="module" src="/scripts/dashboard-page.js"></script>
+
+  <script src="/components/sidebar-space.js"></script>
+</body>
+</html>

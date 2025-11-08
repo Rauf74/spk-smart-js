@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Perhitungan</title>
+  <link rel="shortcut icon" type="image/png" href="/assets/images/smk3.png" />
+  <link rel="stylesheet" href="/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="/assets/css/custom.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+</head>
+<body>
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6"
+       data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+
+    <spk-sidebar></spk-sidebar>
+
+    <div class="body-wrapper">
+      <spk-header></spk-header>
+
+      <div class="container-fluid">
+        <h1 class="mb-4">Data Perhitungan</h1>
+        <p class="fs-6 mb-4">
+          Menampilkan rincian proses perhitungan metode SMART untuk setiap siswa sebagai dasar verifikasi dan analisis data.
+        </p>
+
+        <div class="mb-4">
+          <label for="siswaDropdown" class="form-label">Pilih Siswa</label>
+          <select id="siswaDropdown" class="form-select select-limit">
+            <option value="">Pilih Siswa</option>
+          </select>
+          <small class="text-muted">Pilih siswa untuk menampilkan hasil perhitungan.</small>
+        </div>
+
+        <div class="row mb-4 g-3">
+          <div class="col-lg-3 col-md-6">
+            <div class="card bg-primary text-white">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h4 class="card-title text-white">Total Kriteria</h4>
+                    <h2 class="text-white mb-0" id="totalKriteria">0</h2>
+                  </div>
+                  <i class="ti ti-clipboard-list fs-4"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="card bg-info text-white">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h4 class="card-title text-white">Total Alternatif</h4>
+                    <h2 class="text-white mb-0" id="totalAlternatif">0</h2>
+                  </div>
+                  <i class="ti ti-list-check fs-4"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="card bg-success text-white">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h4 class="card-title text-white">Total Bobot</h4>
+                    <h2 class="text-white mb-0" id="totalBobotDisplay">0</h2>
+                  </div>
+                  <i class="ti ti-scale fs-4"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="card bg-warning text-white">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h4 class="card-title text-white">Total Normalisasi</h4>
+                    <h2 class="text-white mb-0" id="totalNormalisasiDisplay">0</h2>
+                  </div>
+                  <i class="ti ti-calculator fs-4"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Kriteria, Bobot, dan Normalisasi</h5>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="myTableCombinedKriteria" class="display w-100">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Kode Kriteria</th>
+                    <th>Nama Kriteria</th>
+                    <th>Jenis</th>
+                    <th>Bobot (wj)</th>
+                    <th>Normalisasi (wj/∑wj)</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Nilai Kriteria untuk Setiap Alternatif</h5>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="myTableNilaiKriteria" class="display w-100">
+                <thead></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Nilai Utility untuk Setiap Alternatif</h5>
+            <p class="card-subtitle text-muted mt-2 mb-0">
+              Rumus: Benefit = (x - min) / (max - min), Cost = (max - x) / (max - min)
+            </p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="myTableNilaiUtility" class="display w-100">
+                <thead></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Nilai Akhir untuk Setiap Alternatif</h5>
+            <p class="card-subtitle text-muted mt-2 mb-0">
+              Perhitungan nilai akhir menggunakan Σ(ui × ai), dengan ui = nilai utility dan ai = normalisasi bobot kriteria.
+            </p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="myTableNilaiAkhir" class="display w-100">
+                <thead></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="py-6 px-6 text-center">
+          <p class="mb-0 fs-4">Design and Developed by RAUF</p>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-overlay"></div>
+  </div>
+
+  <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/components/sidebarmenu.js"></script>
+  <script src="/components/app.min.js"></script>
+  <script src="/assets/libs/simplebar/dist/simplebar.js"></script>
+  <script type="module" src="/components/index-component.js"></script>
+  <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="module" src="/scripts/perhitungan.js"></script>
+  <script src="/components/sidebar-space.js"></script>
+</body>
+</html>

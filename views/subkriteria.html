@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Subkriteria</title>
+  <link rel="shortcut icon" type="image/png" href="/assets/images/smk3.png" />
+  <link rel="stylesheet" href="/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+</head>
+<body>
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6"
+       data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+
+    <spk-sidebar></spk-sidebar>
+
+    <div class="body-wrapper">
+      <spk-header></spk-header>
+
+      <div class="container-fluid">
+        <h1 class="mb-4">Data Subkriteria</h1>
+        <p class="fs-6 mb-4">
+          Merinci setiap kriteria menjadi poin-poin terukur menggunakan skala 1-5 untuk penilaian yang lebih detail.
+        </p>
+
+        <div id="container-subkriteria" class="py-6"></div>
+
+        <div class="modal fade" id="subkriteriaModal" tabindex="-1" aria-labelledby="subkriteriaModalLabel"
+             aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleSub">Tambah Subkriteria</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="subkriteriaForm">
+                  <input type="hidden" id="id_subkriteria" name="id_subkriteria">
+
+                  <div class="mb-3">
+                    <label for="id_kriteria" class="form-label">Kriteria</label>
+                    <select class="form-select" id="id_kriteria" name="id_kriteria" required></select>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="nama_subkriteria" class="form-label">Nama Subkriteria</label>
+                    <input type="text" class="form-control" id="nama_subkriteria" name="nama_subkriteria" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="nilai" class="form-label">Nilai</label>
+                    <input type="number" class="form-control" id="nilai" name="nilai" required min="0" max="100" step="0.01">
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="py-6 px-6 text-center">
+          <p class="mb-0 fs-4">Design and Developed by RAUF</p>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-overlay"></div>
+  </div>
+
+  <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/components/sidebarmenu.js"></script>
+  <script src="/components/app.min.js"></script>
+  <script src="/assets/libs/simplebar/dist/simplebar.js"></script>
+  <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="module" src="/components/index-component.js"></script>
+  <script type="module" src="/scripts/subkriteria.js"></script>
+  <script src="/components/sidebar-space.js"></script>
+</body>
+</html>

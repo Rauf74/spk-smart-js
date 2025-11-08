@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Penilaian - Siswa</title>
+  <link rel="shortcut icon" type="image/png" href="/assets/images/smk3.png" />
+  <link rel="stylesheet" href="/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+</head>
+<body>
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6"
+       data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+
+    <spk-sidebar></spk-sidebar>
+
+    <div class="body-wrapper">
+      <spk-header></spk-header>
+
+      <div class="container-fluid">
+        <h1 class="mb-4">Data Penilaian Saya</h1>
+        <p class="fs-6 mb-4">
+          Halaman bagi Anda untuk mengisi kuesioner penjurusan sesuai dengan minat dan preferensi pribadi.
+        </p>
+        <p class="form-label">
+          Selamat datang, <strong id="studentName">Pengguna</strong> (NIS: <span id="studentNis">-</span>)
+        </p>
+
+        <div id="kuesionerContainer"></div>
+
+        <div class="py-6 px-6 text-center">
+          <p class="mb-0 fs-4">Design and Developed by RAUF</p>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-overlay"></div>
+  </div>
+
+  <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/components/sidebarmenu.js"></script>
+  <script src="/components/app.min.js"></script>
+  <script src="/assets/libs/simplebar/dist/simplebar.js"></script>
+  <script type="module" src="/components/index-component.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="module" src="/scripts/penilaian_siswa.js"></script>
+  <script src="/components/sidebar-space.js"></script>
+</body>
+</html>

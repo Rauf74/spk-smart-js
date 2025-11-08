@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data User</title>
+  <link rel="shortcut icon" type="image/png" href="/assets/images/smk3.png" />
+  <link rel="stylesheet" href="/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+       data-sidebar-position="fixed" data-header-position="fixed">
+    <spk-sidebar></spk-sidebar>
+
+    <div class="body-wrapper">
+      <spk-header></spk-header>
+
+      <div class="container-fluid">
+        <div class="container-fluid">
+          <h1 class="mb-4">Data User</h1>
+          <p class="fs-6 mb-4">
+            Menu untuk menambah, mengubah, atau menghapus data pengguna sistem, baik akun Guru BK maupun Siswa.
+          </p>
+          <div class="mb-3">
+            <button type="button" class="btn btn-primary m-1" id="tambah">Tambah User</button>
+            <button type="button" class="btn btn-secondary m-1" id="refreshTable">Refresh Data</button>
+          </div>
+
+          <input type="hidden" id="current-user-id" value="0">
+
+          <div class="py-6 text-center">
+            <table id="myTableUser" class="display tbl-width">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama User</th>
+                  <th>Jenis Kelamin</th>
+                  <th>Username</th>
+                  <th>Password</th>
+                  <th>Role</th>
+                  <th>NIS</th>
+                  <th>Status</th>
+                  <th>Aksi (Ubah/Hapus)</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalTitle">Tambah User</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="userForm">
+                    <input type="hidden" id="id_user" name="id_user">
+                    <input type="hidden" id="formAction" name="formAction" value="add">
+
+                    <div class="mb-3">
+                      <label for="nama_user" class="form-label">Nama User</label>
+                      <input type="text" class="form-control" id="nama_user" name="nama_user"
+                             placeholder="Masukkan nama lengkap user" required>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                      <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
+                        <option value="">Pilih Jenis Kelamin</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        <option value="Perempuan">Perempuan</option>
+                      </select>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="username" class="form-label">Username</label>
+                      <input type="text" class="form-control" id="username" name="username"
+                             placeholder="Masukkan username" required>
+                      <small class="text-muted">Username harus unik dan tidak boleh sama dengan user lain</small>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" class="form-control" id="password" name="password"
+                             placeholder="Masukkan password" required>
+                      <small class="text-muted" id="passwordHelp">Masukkan password untuk user baru</small>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="role" class="form-label">Role</label>
+                      <select class="form-control" id="role" name="role" required>
+                        <option value="Siswa">Siswa</option>
+                        <option value="Guru BK">Guru BK</option>
+                      </select>
+                      <small class="text-muted">Pilih role untuk user</small>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="nis" class="form-label">NIS</label>
+                      <input type="text" class="form-control" id="nis" name="nis"
+                             placeholder="Masukkan NIS (opsional)">
+                      <small class="text-muted">Kosongkan jika tidak ada NIS</small>
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="py-6 px-6 text-center">
+          <p class="mb-0 fs-4">Design and Developed by RAUF</p>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-overlay"></div>
+  </div>
+
+  <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/components/sidebarmenu.js"></script>
+  <script src="/components/app.min.js"></script>
+  <script src="/assets/libs/simplebar/dist/simplebar.js"></script>
+  <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="module" src="/components/index-component.js" defer></script>
+  <script type="module" src="/scripts/user.js"></script>
+  <script src="/components/sidebar-space.js"></script>
+</body>
+</html>

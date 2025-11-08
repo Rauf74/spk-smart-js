@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register Siswa - SPK Rekomendasi Program Studi</title>
+  <link rel="shortcut icon" type="image/png" href="/assets/images/smk3.png" />
+  <link rel="stylesheet" href="/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="/assets/css/custom.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+</head>
+<body class="bg-light">
+  <div class="position-fixed top-0 start-0 w-100 h-100 gradient-overlay"></div>
+
+  <div class="page-wrapper" id="main-wrapper">
+    <div class="container-fluid">
+      <div class="row justify-content-center align-items-center min-vh-100 p-4">
+        <div class="col-12 col-lg-10">
+          <div class="row g-4">
+            <div class="col-12 col-lg-4">
+              <div class="card border-0 shadow-lg rounded-4 p-4 h-100 d-flex flex-column justify-content-center align-items-center">
+                <div class="text-center">
+                  <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle mb-3 logo-badge">
+                    <img src="/assets/images/smk3.png" alt="Logo Sekolah" class="logo-contain">
+                  </div>
+                  <h2 class="fw-bold text-dark mb-2">Daftar Akun Siswa</h2>
+                  <p class="fs-6 text-muted mb-0">SMK Muhammadiyah 3 Tangerang Selatan</p>
+                  <p class="fs-6 text-muted small">Sistem Pendukung Keputusan Rekomendasi Program Studi</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-lg-8">
+              <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5">
+                <div class="card-body">
+                  <div class="card-header bg-gradient text-white text-center py-4 card-header-gradient">
+                    <h4 class="mb-0 fw-semibold">
+                      <i class="bi bi-clipboard-check me-2"></i>
+                      Form Pendaftaran
+                    </h4>
+                  </div>
+                  <form id="registerForm" class="needs-validation" novalidate>
+                    <div class="mb-4">
+                      <label for="nama_user" class="form-label fw-semibold text-dark">
+                        <i class="bi bi-person-fill me-2 text-primary"></i>Nama Lengkap
+                      </label>
+                      <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0">
+                          <i class="bi bi-person text-muted"></i>
+                        </span>
+                        <input type="text" class="form-control border-start-0 ps-2" id="nama_user" name="nama_user"
+                               placeholder="Masukkan nama lengkap Anda" required>
+                        <div class="invalid-feedback">
+                          <i class="bi bi-exclamation-triangle me-1"></i>Nama lengkap wajib diisi.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mb-4">
+                      <label for="username" class="form-label fw-semibold text-dark">
+                        <i class="bi bi-at me-2 text-success"></i>Username
+                      </label>
+                      <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0">
+                          <i class="bi bi-at text-muted"></i>
+                        </span>
+                        <input type="text" class="form-control border-start-0 ps-2" id="username" name="username"
+                               placeholder="Pilih username unik" required>
+                        <div class="invalid-feedback">
+                          <i class="bi bi-exclamation-triangle me-1"></i>Username wajib diisi dan harus unik.
+                        </div>
+                      </div>
+                      <div class="form-text">
+                        <i class="bi bi-info-circle me-1"></i>Username akan digunakan untuk login ke sistem.
+                      </div>
+                    </div>
+
+                    <div class="mb-4">
+                      <label for="password" class="form-label fw-semibold text-dark">
+                        <i class="bi bi-shield-lock me-2 text-warning"></i>Kata Sandi
+                      </label>
+                      <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0">
+                          <i class="bi bi-lock text-muted"></i>
+                        </span>
+                        <input type="password" class="form-control border-start-0 ps-0" id="password" name="password"
+                               placeholder="Masukkan kata sandi" required>
+                        <button class="btn btn-outline-secondary border-start-0" type="button" id="togglePassword" aria-label="Tampilkan atau sembunyikan kata sandi">
+                          <i class="bi bi-eye" id="toggleIcon"></i>
+                        </button>
+                        <div class="invalid-feedback">
+                          <i class="bi bi-exclamation-triangle me-1"></i>Kata sandi wajib diisi.
+                        </div>
+                      </div>
+                      <div class="form-text">
+                        <i class="bi bi-info-circle me-1"></i>Gunakan kombinasi huruf besar, kecil, angka, dan simbol.
+                      </div>
+                    </div>
+
+                    <div class="mb-4">
+                      <label for="nis" class="form-label fw-semibold text-dark">
+                        <i class="bi bi-card-text me-2 text-danger"></i>NIS
+                      </label>
+                      <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0">
+                          <i class="bi bi-card-text text-muted"></i>
+                        </span>
+                        <input type="text" class="form-control border-start-0 ps-2" id="nis" name="nis"
+                               placeholder="Masukkan NIS" required>
+                        <div class="invalid-feedback">
+                          <i class="bi bi-exclamation-triangle me-1"></i>NIS wajib diisi dan harus unik.
+                        </div>
+                      </div>
+                      <div class="form-text">
+                        <i class="bi bi-info-circle me-1"></i>Pastikan NIS sesuai dengan data sekolah.
+                      </div>
+                    </div>
+
+                    <div class="mb-4">
+                      <label for="jenis_kelamin" class="form-label fw-semibold text-dark">
+                        <i class="bi bi-gender-ambiguous me-2 text-info"></i>Jenis Kelamin
+                      </label>
+                      <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0">
+                          <i class="bi bi-gender-ambiguous text-muted"></i>
+                        </span>
+                        <select class="form-control border-start-0 ps-2" id="jenis_kelamin" name="jenis_kelamin" required>
+                          <option value="" selected disabled>Pilih Jenis Kelamin</option>
+                          <option value="Laki-laki">Laki-laki</option>
+                          <option value="Perempuan">Perempuan</option>
+                        </select>
+                        <div class="invalid-feedback">
+                          <i class="bi bi-exclamation-triangle me-1"></i>Jenis kelamin wajib dipilih.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mb-4">
+                      <button type="submit" class="btn btn-primary btn-lg rounded-3 fw-semibold py-3 btn-gradient">
+                        <i class="bi bi-person-check me-2"></i>
+                        Daftar Sekarang
+                      </button>
+                    </div>
+
+                    <div class="text-center mb-4">
+                      <hr class="my-3">
+                      <span class="bg-white px-3 text-muted small">Sudah memiliki akun?</span>
+                    </div>
+
+                    <div class="text-center">
+                      <a href="/views/login.html" class="btn btn-outline-primary btn-lg rounded-3 w-100 fw-semibold">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>
+                        Masuk ke Akun
+                      </a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div class="mt-4">
+                <div class="card mb-0 border-0 bg-white bg-opacity-90 rounded-3 p-3 shadow-sm d-flex flex-row justify-content-around align-items-center">
+                  <p class="text-muted small mb-1">
+                    <i class="bi bi-shield-check me-1"></i>
+                    Data Anda aman dan terenkripsi
+                  </p>
+                  <p class="text-muted small mb-0">
+                    <i class="bi bi-telephone me-1"></i>
+                    Butuh bantuan? Hubungi Guru BK
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/components/sidebarmenu.js"></script>
+  <script src="/components/app.min.js"></script>
+  <script src="/assets/libs/simplebar/dist/simplebar.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="module" src="/scripts/register.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+.gradient-overlay {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  z-index: -2;
+}
+
+.card-header-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+}
+
+.logo-badge {
+  width: 80px;
+  height: 80px;
+}
+
+.logo-contain {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.profile-status-badge {
+  width: 30px;
+  height: 30px;
+}
+
+.select-limit {
+  max-width: 300px;
+}
+
+.d-initially-none {
+  display: none;
+}
+
+.tbl-width {
+  width: 100%;
+}

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Pertanyaan</title>
+  <link rel="shortcut icon" type="image/png" href="/assets/images/smk3.png" />
+  <link rel="stylesheet" href="/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+</head>
+<body>
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6"
+       data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+
+    <spk-sidebar></spk-sidebar>
+
+    <div class="body-wrapper">
+      <spk-header></spk-header>
+
+      <div class="container-fluid">
+        <h1 class="mb-4">Data Pertanyaan</h1>
+        <p class="fs-6 mb-4">Memuat daftar pertanyaan kuesioner yang digunakan untuk mengukur kecenderungan siswa terhadap setiap kriteria.</p>
+
+        <div id="container-pertanyaan" class="py-6"></div>
+
+        <div class="modal fade" id="pertanyaanModal" tabindex="-1" aria-labelledby="pertanyaanModalLabel"
+             aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTitlePert">Tambah Pertanyaan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="pertanyaanForm">
+                  <input type="hidden" id="id_pertanyaan" name="id_pertanyaan">
+                  <input type="hidden" id="id_alternatif" name="id_alternatif">
+
+                  <div class="mb-3">
+                    <label for="id_kriteria" class="form-label">Kriteria</label>
+                    <select class="form-select" id="id_kriteria" name="id_kriteria" required></select>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="teks_pertanyaan" class="form-label">Teks Pertanyaan</label>
+                    <textarea class="form-control" id="teks_pertanyaan" name="teks_pertanyaan" rows="3"
+                      placeholder="Masukkan teks pertanyaan" required></textarea>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="py-6 px-6 text-center">
+          <p class="mb-0 fs-4">Design and Developed by RAUF</p>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-overlay"></div>
+  </div>
+
+  <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/components/sidebarmenu.js"></script>
+  <script src="/components/app.min.js"></script>
+  <script src="/assets/libs/simplebar/dist/simplebar.js"></script>
+  <script type="module" src="/components/index-component.js"></script>
+  <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="module" src="/scripts/pertanyaan.js"></script>
+  <script src="/components/sidebar-space.js"></script>
+</body>
+</html>

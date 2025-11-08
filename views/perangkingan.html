@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Perangkingan</title>
+  <link rel="shortcut icon" type="image/png" href="/assets/images/smk3.png" />
+  <link rel="stylesheet" href="/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="/assets/css/custom.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+</head>
+<body data-nama-sekolah="SMK Muhammadiyah 3 Tangerang Selatan" data-logo-path="/assets/images/smk3.png">
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6"
+       data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+
+    <spk-sidebar></spk-sidebar>
+
+    <div class="body-wrapper">
+      <spk-header></spk-header>
+
+      <div class="container-fluid">
+        <h1 class="mb-4">Hasil Perangkingan</h1>
+        <p class="fs-6 mb-4">
+          Menyajikan peringkat rekomendasi program studi untuk semua siswa, lengkap dengan filter individu dan statistik pendukung.
+        </p>
+
+        <div class="mb-3">
+          <button type="button" class="btn btn-success m-1" id="refreshData">
+            <i class="fas fa-sync-alt me-2"></i>Refresh Data
+          </button>
+          <button type="button" class="btn btn-info m-1" id="eksporData">
+            <i class="fas fa-download me-2"></i>Ekspor Data
+          </button>
+        </div>
+
+        <div class="mb-4">
+          <label for="pilihSiswa" class="form-label">Pilih Siswa</label>
+          <select id="pilihSiswa" class="form-select select-limit">
+            <option value="">Pilih Siswa</option>
+          </select>
+          <small class="text-muted">Gunakan dropdown untuk melihat hasil perangkingan setiap siswa.</small>
+        </div>
+
+        <div class="row mb-4 g-3">
+          <div class="col-md-3">
+            <div class="card bg-primary text-white">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h4 class="card-title text-white">Total Alternatif</h4>
+                    <h2 class="text-white mb-0" id="totalAlternatif">-</h2>
+                  </div>
+                  <i class="fas fa-list-ol fa-2x"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card bg-success text-white">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h4 class="card-title text-white">Nilai Tertinggi</h4>
+                    <h2 class="text-white mb-0" id="nilaiTertinggi">-</h2>
+                  </div>
+                  <i class="fas fa-arrow-up fa-2x"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card bg-warning text-white">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h4 class="card-title text-white">Nilai Terendah</h4>
+                    <h2 class="text-white mb-0" id="nilaiTerendah">-</h2>
+                  </div>
+                  <i class="fas fa-arrow-down fa-2x"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card bg-info text-white">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <h4 class="card-title text-white">Rata-rata</h4>
+                    <h2 class="text-white mb-0" id="rataRata">-</h2>
+                  </div>
+                  <i class="fas fa-chart-line fa-2x"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-12">
+            <div id="alternatifTerbaik"></div>
+          </div>
+        </div>
+
+        <div id="noDataMessage" class="alert alert-warning text-center d-none">
+          <h4 class="mb-2"><i class="fas fa-exclamation-triangle me-2"></i>Tidak Ada Data Perangkingan</h4>
+          <p class="mb-3">
+            Pastikan data kriteria, alternatif, dan penilaian sudah lengkap, lalu lakukan perhitungan untuk menampilkan hasil perangkingan.
+          </p>
+          <a href="perhitungan.html" class="btn btn-primary">
+            <i class="fas fa-calculator me-2"></i>Ke Halaman Perhitungan
+          </a>
+        </div>
+
+        <div id="tableContainer" class="py-6 px-6 text-center">
+          <table id="myTablePerangkingan" class="display w-100">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Kode Alternatif</th>
+                <th>Nama Alternatif</th>
+                <th>Nilai Akhir</th>
+                <th>Keterangan</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-0">
+                  <i class="fas fa-info-circle me-2"></i>Informasi Perangkingan
+                </h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h6><i class="fas fa-medal text-warning me-2"></i>Keterangan Ranking:</h6>
+                    <ul class="list-unstyled mb-0">
+                      <li><span class="badge bg-success me-2">Rank 1</span>Alternatif Terbaik</li>
+                      <li><span class="badge bg-warning me-2">Rank 2</span>Alternatif Kedua Terbaik</li>
+                      <li><span class="badge bg-info me-2">Rank 3</span>Alternatif Ketiga Terbaik</li>
+                      <li><span class="badge bg-secondary me-2">Rank 4+</span>Alternatif lainnya</li>
+                    </ul>
+                  </div>
+                  <div class="col-md-6">
+                    <h6><i class="fas fa-calculator text-primary me-2"></i>Metode Perhitungan:</h6>
+                    <p class="mb-0">
+                      Hasil perangkingan dihitung menggunakan metode SMART (Simple Multi Attribute Rating Technique)
+                      dengan mengurutkan nilai akhir dari tertinggi ke terendah.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="py-6 px-6 text-center">
+          <p class="mb-0 fs-4">Design and Developed by RAUF</p>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-overlay"></div>
+  </div>
+
+  <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/components/sidebarmenu.js"></script>
+  <script src="/components/app.min.js"></script>
+  <script src="/assets/libs/simplebar/dist/simplebar.js"></script>
+  <script type="module" src="/components/index-component.js" defer></script>
+  <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/5.0.2/jspdf.plugin.autotable.min.js"></script>
+  <script type="module" src="/scripts/perangkingan.js"></script>
+  <script src="/components/sidebar-space.js"></script>
+</body>
+</html>
