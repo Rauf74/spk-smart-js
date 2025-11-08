@@ -3,12 +3,7 @@
   "functions": {
     "server/app.js": {
       "runtime": "nodejs18.x",
-      "includeFiles": [
-        "assets/**",
-        "components/**",
-        "views/**",
-        "scripts/**"
-      ]
+      "includeFiles": "{assets,components,views,scripts}/**"
     }
   },
   "routes": [

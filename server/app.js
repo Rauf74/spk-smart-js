@@ -37,7 +37,6 @@ app.use("/assets", express.static(path.join(__dirname, "..", "assets")));
 app.use("/scripts", express.static(path.join(__dirname, "..", "scripts")));
 app.use("/views", express.static(path.join(__dirname, "..", "views")));
 app.use("/components", express.static(path.join(__dirname, "..", "components")));
-app.use(express.static(path.join(__dirname, "..")));
 
 app.get("/", (_req, res) => {
   res.sendFile(path.join(__dirname, "..", "views", "login.html"));
