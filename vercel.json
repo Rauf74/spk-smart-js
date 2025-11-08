@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "server/app.js",
-      "use": "@vercel/node"
-    }
-  ],
   "functions": {
     "server/app.js": {
-      "includeFiles": "{assets,components,views,scripts}/**"
+      "runtime": "nodejs18.x",
+      "includeFiles": [
+        "assets/**",
+        "components/**",
+        "views/**",
+        "scripts/**"
+      ]
     }
   },
   "routes": [
