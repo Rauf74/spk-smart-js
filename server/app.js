@@ -58,8 +58,4 @@ app.use("/api/dashboard", dashboardAPI);
 app.use("/api/profile", profileAPI);
 app.use("/api/users", userAPI);
 
-// Start Server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`✅ Server jalan di http://localhost:${PORT}`);
-});
+export default app;
