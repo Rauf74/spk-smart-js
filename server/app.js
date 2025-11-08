@@ -33,7 +33,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 //Folder Assets & Scripts & Views (Static Files)
-app.use("/assets", express.static(path.join(__dirname, "..", "assets")));
+app.use(
+  "/assets",
+  express.static(path.join(__dirname, "..", "assets"), {
+    fallthrough: true,
+  })
+);
 app.use("/scripts", express.static(path.join(__dirname, "..", "scripts")));
 app.use("/views", express.static(path.join(__dirname, "..", "views")));
 app.use("/components", express.static(path.join(__dirname, "..", "components")));

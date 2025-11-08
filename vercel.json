@@ -3,7 +3,12 @@
   "builds": [
     {
       "src": "server/app.js",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "assets/libs/**"
+        ]
+      }
     }
   ],
   "routes": [
