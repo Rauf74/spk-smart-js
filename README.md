@@ -112,6 +112,19 @@ Buka `http://localhost:3000/views/login.html`, login dengan akun seed, atau buat
 
 ---
 
+## Cuplikan Layar
+
+Tambahkan screenshot halaman utama agar pembaca langsung mendapat gambaran antarmuka aplikasi. Contoh:
+
+```
+![Dashboard SPK SMART](./docs/screenshots/dashboard.png)
+```
+
+Silakan ganti path file di atas dengan lokasi screenshot kamu sendiri (mis. `./assets/screenshots/dashboard.png`).  
+Jika ingin menampilkan beberapa halaman (login, kriteria, penilaian), buat daftar serupa agar README terlihat lebih hidup.
+
+---
+
 ## Apa yang Saya Pelajari
 
 - Refactor aplikasi PHP menjadi Node.js sambil menjaga logika SMART yang digunakan guru di sekolah.
