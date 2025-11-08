@@ -69,7 +69,7 @@ Saya membangun ulang sistem SMART untuk SMK Muhammadiyah 3 Tangerang Selatan ke 
 
 ---
 
-## Cara Menjalankan (Local)
+## Cara Menjalankan (Lokal)
 
 ```bash
 git clone https://github.com/yourusername/spk-smart-js.git
@@ -104,11 +104,7 @@ Buka `http://localhost:3000/views/login.html`, login dengan akun seed, atau buat
 
 ---
 
-## Deployment
-
-- Backend tanpa state → bisa ditempatkan di Vercel, Render, atau Fly.io.
-- Database tinggali di cloud PostgreSQL (Neon, Supabase, Railway) dan isi environment variable di platform deploy.
-- Saat sudah HTTPS, set cookie `secure: true` agar lebih aman.
+> Catatan: README ini memang difokuskan untuk menjalankan proyek secara **lokal**. Jika suatu saat ingin memindahkan ke layanan hosting (Vercel, Fly.io, dsb.), ikuti dokumentasi masing-masing platform untuk menyesuaikan environment variable dan koneksi databasenya.
 
 ---
 
