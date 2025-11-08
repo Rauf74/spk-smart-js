@@ -8,12 +8,7 @@
   ],
   "functions": {
     "server/app.js": {
-      "includeFiles": [
-        "assets/**",
-        "components/**",
-        "views/**",
-        "scripts/**"
-      ]
+      "includeFiles": "{assets,components,views,scripts}/**"
     }
   },
   "routes": [
