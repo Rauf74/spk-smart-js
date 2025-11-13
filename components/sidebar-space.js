@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         handleOverlay();
-        console.log('Logika overlay berhasil diinisialisasi.'); // Pesan sukses
     };
 
     // Kita buat fungsi "penunggu" atau "checker"
