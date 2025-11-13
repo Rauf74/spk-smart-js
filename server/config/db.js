@@ -1,12 +1,19 @@
 // server/config/db.js
 import pg from "pg";
 import dotenv from "dotenv";
+import { Pool as NeonPool, neonConfig } from "@neondatabase/serverless";
 
 dotenv.config();
 
 const { Pool } = pg;
 const hasConnectionString = Boolean(process.env.DATABASE_URL);
 const shouldUseSSL = process.env.DB_SSL === "true" || process.env.NODE_ENV === "production";
+const useNeonPool = hasConnectionString && process.env.USE_NEON_DRIVER !== "false";
+
+if (useNeonPool) {
+  // Cache fetch connections between invocations to avoid cold starts
+  neonConfig.fetchConnectionCache = true;
+}
 
 const poolConfig = hasConnectionString
   ? {
@@ -22,7 +29,8 @@ const poolConfig = hasConnectionString
       ssl: shouldUseSSL ? { rejectUnauthorized: false } : undefined,
     };
 
-const pool = new Pool(poolConfig);
+const SelectedPool = useNeonPool ? NeonPool : Pool;
+const pool = new SelectedPool(poolConfig);
 
 const convertPlaceholders = (query = "") => {
   let index = 0;
