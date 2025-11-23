@@ -157,8 +157,8 @@ const renderKuesioner = (idUser) => {
       );
       const selectedJawaban = penilaian
         ? penilaian.jawaban_list.find(
-            (jawaban) => jawaban.id_pertanyaan === pertanyaan.id_pertanyaan
-          )
+          (jawaban) => jawaban.id_pertanyaan === pertanyaan.id_pertanyaan
+        )
         : null;
       const selectedSubkriteria = selectedJawaban?.id_subkriteria ?? null;
       const subkriteriaOptions =
@@ -221,11 +221,11 @@ const renderKuesioner = (idUser) => {
       alternatifData.penilaian.forEach((penilaian) => {
         const jawabanDetails = Array.isArray(penilaian.jawaban_list)
           ? penilaian.jawaban_list
-              .map(
-                (jawaban) =>
-                  `${jawaban.teks_pertanyaan}: ${jawaban.nama_subkriteria} (${jawaban.jawaban})`
-              )
-              .join("<br>")
+            .map(
+              (jawaban) =>
+                `${jawaban.teks_pertanyaan}: ${jawaban.nama_subkriteria} (${jawaban.jawaban})`
+            )
+            .join("<br>")
           : "-";
 
         cardHtml += `
@@ -283,41 +283,44 @@ const loadKuesionerData = async (idUser) => {
   resetState();
 
   try {
-    const response = await fetchJSON(`${API_BASE}/users/${idUser}/alternatif`);
-    const alternatifList = response?.data || [];
+    // 1. Fetch Subkriteria (Global) & Alternatif List (User-specific) in parallel
+    const [subkriteriaRes, alternatifRes] = await Promise.all([
+      fetchJSON("/api/subkriteria"),
+      fetchJSON(`${API_BASE}/users/${idUser}/alternatif`)
+    ]);
+
+    // Process Subkriteria
+    const allSubkriteria = Array.isArray(subkriteriaRes?.data) ? subkriteriaRes.data : [];
+    allSubkriteria.forEach((sub) => {
+      const kId = Number(sub.id_kriteria);
+      if (!state.subkriteria.has(kId)) {
+        state.subkriteria.set(kId, []);
+      }
+      state.subkriteria.get(kId).push(sub);
+    });
+
+    const alternatifList = alternatifRes?.data || [];
 
     if (alternatifList.length === 0) {
       setEmptyMessage("Tidak ada penilaian untuk siswa ini.");
       return;
     }
 
-    for (const alternatif of alternatifList) {
-      const [pertanyaanRes, penilaianRes] = await Promise.all([
-        fetchJSON(`${API_BASE}/alternatif/${alternatif.id_alternatif}/pertanyaan`),
-        fetchJSON(
-          `${API_BASE}/users/${idUser}/alternatif/${alternatif.id_alternatif}`
-        ),
-      ]);
+    // 2. Fetch Questions and Assessments for ALL alternatives in parallel
+    await Promise.all(
+      alternatifList.map(async (alternatif) => {
+        const [pertanyaanRes, penilaianRes] = await Promise.all([
+          fetchJSON(`${API_BASE}/alternatif/${alternatif.id_alternatif}/pertanyaan`),
+          fetchJSON(`${API_BASE}/users/${idUser}/alternatif/${alternatif.id_alternatif}`)
+        ]);
 
-      state.pertanyaan.set(alternatif.id_alternatif, pertanyaanRes?.data || []);
-      state.penilaian.set(alternatif.id_alternatif, {
-        nama: alternatif.nama_alternatif,
-        penilaian: penilaianRes?.data || [],
-      });
-
-      const pertanyaanList = state.pertanyaan.get(alternatif.id_alternatif) || [];
-      for (const pertanyaan of pertanyaanList) {
-        if (!state.subkriteria.has(pertanyaan.id_kriteria)) {
-          const subRes = await fetchJSON(
-            `${API_BASE}/kriteria/${pertanyaan.id_kriteria}/subkriteria`
-          );
-          state.subkriteria.set(
-            pertanyaan.id_kriteria,
-            subRes?.data || []
-          );
-        }
-      }
-    }
+        state.pertanyaan.set(alternatif.id_alternatif, pertanyaanRes?.data || []);
+        state.penilaian.set(alternatif.id_alternatif, {
+          nama: alternatif.nama_alternatif,
+          penilaian: penilaianRes?.data || [],
+        });
+      })
+    );
 
     renderKuesioner(idUser);
   } catch (error) {

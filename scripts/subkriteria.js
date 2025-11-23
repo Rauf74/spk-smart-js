@@ -173,8 +173,8 @@ async function refreshTable(id_kriteria) {
     const rows = Array.isArray(response?.data)
       ? response.data
       : Array.isArray(response)
-      ? response
-      : [];
+        ? response
+        : [];
     table.clear();
     table.rows.add(rows);
     table.draw();
@@ -379,23 +379,49 @@ async function bootstrap() {
   if (redirected) return;
 
   try {
-    const kriteriaResponse = await fetchJSON(API_KRITERIA);
+    // Fetch kriteria and ALL subkriteria in parallel
+    const [kriteriaResponse, subkriteriaResponse] = await Promise.all([
+      fetchJSON(API_KRITERIA),
+      fetchJSON(API_SUBKRITERIA) // Fetch all subkriteria at once
+    ]);
+
     kriteriaList = Array.isArray(kriteriaResponse?.data)
       ? kriteriaResponse.data
       : Array.isArray(kriteriaResponse)
-      ? kriteriaResponse
-      : [];
+        ? kriteriaResponse
+        : [];
+
+    const allSubkriteria = Array.isArray(subkriteriaResponse?.data)
+      ? subkriteriaResponse.data
+      : Array.isArray(subkriteriaResponse)
+        ? subkriteriaResponse
+        : [];
+
+    // Group subkriteria by id_kriteria
+    const subkriteriaMap = new Map();
+    allSubkriteria.forEach(sub => {
+      const kId = Number(sub.id_kriteria);
+      if (!subkriteriaMap.has(kId)) {
+        subkriteriaMap.set(kId, []);
+      }
+      subkriteriaMap.get(kId).push(sub);
+    });
 
     container.empty();
     kriteriaList.forEach((item) => {
       initTableForKriteria(item);
+      // Populate table immediately from local data
+      const table = tables.get(Number(item.id_kriteria));
+      if (table) {
+        const rows = subkriteriaMap.get(Number(item.id_kriteria)) || [];
+        table.clear();
+        table.rows.add(rows);
+        table.draw();
+      }
     });
 
     bindEvents();
 
-    for (const item of kriteriaList) {
-      await refreshTable(item.id_kriteria);
-    }
   } catch (error) {
     console.error("[subkriteria] init", error);
     Swal.fire({
