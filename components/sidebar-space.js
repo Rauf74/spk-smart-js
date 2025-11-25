@@ -1,14 +1,15 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     // Logika Overlay
     const setupOverlayLogic = () => {
         const pageWrapper = document.getElementById('main-wrapper');
         const overlay = document.querySelector('.sidebar-overlay');
-        const sidebarToggler = document.querySelector('.sidebartoggler'); // Tombol menu yang kita tunggu
 
-        // Dobel cek sekali lagi untuk keamanan
-        if (!pageWrapper || !overlay || !sidebarToggler) {
-            console.error('Gagal menginisialisasi overlay: salah satu elemen penting tidak ditemukan.');
+        // Kita tidak perlu menunggu sidebartoggler di sini jika kita trigger click secara manual
+        // atau kita bisa cari saat event click terjadi.
+
+        if (!pageWrapper || !overlay) {
+            console.error('Gagal menginisialisasi overlay: elemen wrapper atau overlay tidak ditemukan.');
             return;
         }
 
@@ -20,12 +21,22 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
 
-        overlay.addEventListener('click', function() {
-            sidebarToggler.click();
+        // Event listener untuk menutup sidebar saat overlay diklik
+        overlay.addEventListener('click', function () {
+            // Cari tombol toggler saat klik terjadi (karena mungkin dirender dinamis)
+            const sidebarToggler = document.querySelector('.sidebartoggler');
+            if (sidebarToggler) {
+                sidebarToggler.click();
+            } else {
+                // Fallback jika tombol tidak ketemu, kita coba remove class manual
+                // Tapi idealnya trigger click biar sinkron dengan logic sidebar lainnya
+                pageWrapper.classList.remove('show-sidebar');
+                handleOverlay();
+            }
         });
 
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
+        const observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
                 if (mutation.attributeName === 'class') {
                     handleOverlay();
                 }
@@ -39,18 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
         handleOverlay();
     };
 
-    // Kita buat fungsi "penunggu" atau "checker"
-    const waitForElement = () => {
-        // Cek apakah elemen .sidebartoggler sudah ada
-        if (document.querySelector('.sidebartoggler')) {
-            // Jika sudah ada, jalankan logika utama kita
-            setupOverlayLogic();
-        } else {
-            // Jika belum, tunggu 100 milidetik lalu cek lagi
-            setTimeout(waitForElement, 100);
-        }
-    };
-
-    // Mulai proses menunggu
-    waitForElement();
+    // Jalankan langsung karena overlay dan wrapper biasanya statis di index.html
+    setupOverlayLogic();
 });
