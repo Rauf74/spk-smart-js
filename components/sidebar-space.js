@@ -23,15 +23,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Event listener untuk menutup sidebar saat overlay diklik
         overlay.addEventListener('click', function () {
+            pageWrapper.classList.remove('show-sidebar');
+            handleOverlay();
+
             // Cari tombol toggler saat klik terjadi (karena mungkin dirender dinamis)
             const sidebarToggler = document.querySelector('.sidebartoggler');
             if (sidebarToggler) {
+                sidebarToggler.classList.remove('active');
+                // Trigger click supaya logic lain (misal uncheck checkbox) ikut jalan
                 sidebarToggler.click();
-            } else {
-                // Fallback jika tombol tidak ketemu, kita coba remove class manual
-                // Tapi idealnya trigger click biar sinkron dengan logic sidebar lainnya
-                pageWrapper.classList.remove('show-sidebar');
-                handleOverlay();
             }
         });
 
