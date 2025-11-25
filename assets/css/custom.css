@@ -55,3 +55,8 @@
   opacity: 1;
   pointer-events: auto;
 }
+
+/* Fix for sidebar overlay z-index issue */
+.left-sidebar {
+  z-index: 1100 !important;
+}
