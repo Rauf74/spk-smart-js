@@ -108,6 +108,38 @@ Buka `http://localhost:3000/views/login.html`, login dengan akun seed, atau buat
 
 ---
 
+## Menjalankan dengan Docker (Alternatif)
+
+Proyek ini juga mendukung Docker sebagai alternatif deployment. Pastikan Docker dan Docker Compose sudah terinstal.
+
+### Development Mode (dengan hot-reload)
+
+```bash
+docker-compose up app
+```
+
+Aplikasi akan berjalan di `http://localhost:3000` dengan fitur hot-reload aktif.
+
+### Production Mode
+
+```bash
+docker-compose up app-prod
+```
+
+### Build Image Saja
+
+```bash
+# Development
+docker build --target development -t spk-smart:dev .
+
+# Production
+docker build --target production -t spk-smart:prod .
+```
+
+> **Catatan:** Pastikan file `.env` sudah dikonfigurasi dengan benar sebelum menjalankan Docker. Docker akan membaca environment variables dari file tersebut.
+
+---
+
 ## Cuplikan Layar
 
 Tambahkan screenshot halaman utama agar pembaca langsung mendapat gambaran antarmuka aplikasi. Contoh:

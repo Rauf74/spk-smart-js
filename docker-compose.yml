@@ -1,0 +1,77 @@
+# ============================================
+# Docker Compose untuk SPK-SMART-JS
+# ============================================
+# 
+# Cara pakai:
+# - Development: docker-compose up
+# - Production:  docker-compose -f docker-compose.yml up app-prod
+#
+# ============================================
+
+services:
+  # ==========================================
+  # Development Mode (dengan hot-reload)
+  # ==========================================
+  app:
+    build:
+      context: .
+      target: development
+    container_name: spk-smart-dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      # Database connection (sesuaikan dengan Neon atau local DB)
+      - DATABASE_URL=${DATABASE_URL}
+      - JWT_SECRET=${JWT_SECRET}
+    volumes:
+      # Mount source code untuk hot-reload
+      - .:/app
+      # Jangan mount node_modules (pakai yang di container)
+      - /app/node_modules
+    restart: unless-stopped
+
+  # ==========================================
+  # Production Mode
+  # ==========================================
+  app-prod:
+    build:
+      context: .
+      target: production
+    container_name: spk-smart-prod
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=${DATABASE_URL}
+      - JWT_SECRET=${JWT_SECRET}
+    restart: always
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+  # ==========================================
+  # PostgreSQL Lokal (Opsional)
+  # Uncomment jika ingin pakai DB lokal
+  # ==========================================
+  # postgres:
+  #   image: postgres:16-alpine
+  #   container_name: spk-smart-db
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #     POSTGRES_DB: spk_smart
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   restart: unless-stopped
+
+# volumes:
+#   postgres_data:

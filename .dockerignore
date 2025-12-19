@@ -1,0 +1,47 @@
+# Dependencies
+node_modules
+npm-debug.log*
+
+# Git
+.git
+.gitignore
+
+# Environment files (jangan include, pakai env saat runtime)
+.env
+.env.*
+!.env.example
+
+# IDE & Editor
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist
+build
+
+# Documentation
+*.md
+!README.md
+
+# Docker files (tidak perlu di-copy ke dalam image)
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Vercel (tidak relevan untuk Docker)
+vercel.json
+.vercel
+
+# Logs
+logs
+*.log
+
+# Test files
+coverage
+.nyc_output
